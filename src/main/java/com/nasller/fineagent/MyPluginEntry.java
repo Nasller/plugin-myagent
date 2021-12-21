@@ -1,4 +1,4 @@
-package com.jiweichengzhu.fineagent;
+package com.nasller.fineagent;
 
 import com.janetfilter.core.Environment;
 import com.janetfilter.core.models.FilterRule;
@@ -14,7 +14,7 @@ public class MyPluginEntry implements PluginEntry {
     @Override
     public void init(Environment environment, List<FilterRule> filterRules) {
         transformers.add(new BITransformer());
-        transformers.add(new ARTransformer());
+        transformers.add(new StrTransformer());
     }
 
     @Override
@@ -24,12 +24,12 @@ public class MyPluginEntry implements PluginEntry {
 
     @Override
     public String getAuthor() {
-        return "jiweichengzhu.com";
+        return "Nasller";
     }
 
     @Override
     public String getVersion() {
-        return "v1.0.1";
+        return "v1.0.2";
     }
 
     @Override

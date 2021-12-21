@@ -1,18 +1,16 @@
-package com.jiweichengzhu.fineagent;
+package com.nasller.fineagent;
 
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassWriter;
 import jdk.internal.org.objectweb.asm.tree.*;
 
-import java.util.Iterator;
-
 import static jdk.internal.org.objectweb.asm.Opcodes.*;
 
-public class BITransformer implements MyTransformer {
+public class StrTransformer implements MyTransformer {
     @Override
     public String getHookClassName() {
-        return "java/io/ByteArrayInputStream";
+        return "java/lang/String";
     }
 
     @Override
@@ -20,29 +18,23 @@ public class BITransformer implements MyTransformer {
         ClassReader reader = new ClassReader(classBytes);
         ClassNode node = new ClassNode(ASM5);
         reader.accept(node, 0);
-
-        for (MethodNode mn : node.methods) {
-            if ("<init>".equals(mn.name) && "([B)V".equals(mn.desc)) {
+        for (MethodNode m : node.methods) {
+            if ("<init>".equals(m.name) && "([CIILjava/lang/Void;)V".equals(m.desc)) {
                 InsnList list = new InsnList();
                 list.add(new VarInsnNode(ALOAD, 1));
-                list.add(new MethodInsnNode(INVOKESTATIC, "com/jiweichengzhu/fineagent/BytesFilter", "testBytes", "([B)[B", false));
-                list.add(new VarInsnNode(ASTORE, 1));
-
-                Iterator<AbstractInsnNode> it = mn.instructions.iterator();
-                while (it.hasNext()) {
-                    AbstractInsnNode in = it.next();
-
-                    if (AbstractInsnNode.METHOD_INSN == in.getType()) {
-                        mn.instructions.insert(in, list);
-                        break;
-                    }
-                }
+                list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/crack/idea/agent/StringFilter", "testEquals", "([C)Ljava/lang/Object;", false));
+                list.add(new VarInsnNode(ASTORE, 5));
+                list.add(new VarInsnNode(ALOAD, 5));
+                LabelNode label1 = new LabelNode();
+                list.add(new JumpInsnNode(IFNULL, label1));
+                list.add(new VarInsnNode(ALOAD, 5));
+                list.add(new VarInsnNode(ASTORE,1));
+                list.add(label1);
+                m.instructions.insert(list);
             }
         }
-
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
         node.accept(writer);
-
         return writer.toByteArray();
     }
 }

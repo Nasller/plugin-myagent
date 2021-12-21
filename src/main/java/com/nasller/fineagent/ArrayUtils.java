@@ -1,4 +1,4 @@
-package com.jiweichengzhu.fineagent;
+package com.nasller.fineagent;
 
 public class ArrayUtils {
     public static boolean equals(byte[] a, byte[] a2) {

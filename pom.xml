@@ -47,8 +47,8 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
-                            <Built-By>jiweichengzhu.com</Built-By>
-                            <JANF-Plugin-Entry>com.jiweichengzhu.fineagent.MyPluginEntry</JANF-Plugin-Entry>
+                            <Built-By>Nasller</Built-By>
+                            <JANF-Plugin-Entry>com.nasller.fineagent.MyPluginEntry</JANF-Plugin-Entry>
                         </manifestEntries>
                     </archive>
                     <descriptorRefs>
