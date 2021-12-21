@@ -19,7 +19,7 @@ public class StrTransformer implements MyTransformer {
         ClassNode node = new ClassNode(ASM5);
         reader.accept(node, 0);
         for (MethodNode m : node.methods) {
-            if ("<init>".equals(m.name) && "([CIILjava/lang/Void;)V".equals(m.desc)) {
+            if ("<init>".equals(m.name) && "([CII)V".equals(m.desc)) {
                 InsnList list = new InsnList();
                 list.add(new VarInsnNode(ALOAD, 1));
                 list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/fineagent/StringFilter", "testEquals", "([C)Ljava/lang/Object;", false));
