@@ -15,11 +15,11 @@ public class StringFilter {
 		if (aa.length == length) {
 			boolean a = true;
 			boolean b = true;
-			for (int i = 0; i < chars.length; i++) {
+			for (int i = 0; i < length; i++) {
 				if(!a && !b) break;
-				if(chars[i] != aa[i]) a = false;
-				if(chars[i] != bb[i]) b = false;
-				if(i == chars.length-1) {
+				if(a && chars[i] != aa[i]) a = false;
+				if(b && chars[i] != bb[i]) b = false;
+				if(i == length-1) {
 					if(a) return cc;
 					else if(b) return dd;
 				}
