@@ -33,7 +33,7 @@ public class StrTransformer implements MyTransformer {
                 m.instructions.insert(list);
             }
         }
-        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         node.accept(writer);
         return writer.toByteArray();
     }
