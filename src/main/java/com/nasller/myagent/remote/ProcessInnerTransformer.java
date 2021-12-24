@@ -24,7 +24,7 @@ public class ProcessInnerTransformer implements MyTransformer {
 	@Override
 	public byte[] transform(String className, byte[] classBytes, int order) throws Exception {
 		ClassReader reader = new ClassReader(classBytes);
-		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+		ClassWriter writer = new ClassWriter(0);
 		reader.accept(writer, 0);
 		MethodVisitor methodVisitor = writer.visitMethod(ACC_PUBLIC, "processWillTerminate", "(Lcom/intellij/execution/process/ProcessEvent;Z)V", null, null);
 		RemoteAsm.visitProcessTerminated(methodVisitor,this.configList);
