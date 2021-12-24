@@ -19,10 +19,11 @@ public class MyPluginEntry implements PluginEntry {
     public void init(Environment environment, List<FilterRule> filterRules) {
         transformers.add(new BITransformer());
         transformers.add(new StrTransformer());
-        if(filterRules != null && !filterRules.isEmpty() && filterRules.get(0).test("REMOTE")){
+        if(filterRules != null && filterRules.size() > 4 && filterRules.get(0).test("REMOTE")){
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
-            transformers.add(new CommandInnerTransformer(filterRules));
-            transformers.add(new ProcessInnerTransformer(filterRules));
+            List<FilterRule> rules = filterRules.subList(1, 5);
+            transformers.add(new CommandInnerTransformer(rules));
+            transformers.add(new ProcessInnerTransformer(rules));
         }
     }
 
