@@ -4,6 +4,10 @@ import com.janetfilter.core.Environment;
 import com.janetfilter.core.models.FilterRule;
 import com.janetfilter.core.plugin.MyTransformer;
 import com.janetfilter.core.plugin.PluginEntry;
+import com.nasller.myagent.crack.BITransformer;
+import com.nasller.myagent.crack.StrTransformer;
+import com.nasller.myagent.remote.CommandInnerTransformer;
+import com.nasller.myagent.remote.ProcessInnerTransformer;
 
 import java.util.ArrayList;
 import java.util.List;

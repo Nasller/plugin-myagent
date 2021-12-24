@@ -1,4 +1,4 @@
-package com.nasller.myagent;
+package com.nasller.myagent.crack;
 
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;

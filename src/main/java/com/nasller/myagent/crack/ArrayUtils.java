@@ -1,4 +1,4 @@
-package com.nasller.myagent;
+package com.nasller.myagent.crack;
 
 public class ArrayUtils {
     public static boolean equals(byte[] a, byte[] a2) {

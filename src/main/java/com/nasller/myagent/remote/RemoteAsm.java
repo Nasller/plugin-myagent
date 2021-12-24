@@ -1,4 +1,4 @@
-package com.nasller.myagent;
+package com.nasller.myagent.remote;
 
 import com.janetfilter.core.models.FilterRule;
 import jdk.internal.org.objectweb.asm.*;
