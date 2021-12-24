@@ -303,9 +303,11 @@ public class RemoteAsm {
 	}
 
 	public static void visitProcessTerminated(MethodVisitor methodVisitor, List<FilterRule> configList){
-		methodVisitor.visitCode();
-		AnnotationVisitor annotationVisitor = methodVisitor.visitTypeAnnotation(369098752, null, "Lorg/jetbrains/annotations/NotNull;", false);
+		AnnotationVisitor annotationVisitor = methodVisitor.visitTypeAnnotation(TypeReference.METHOD_FORMAL_PARAMETER, null, "Lorg/jetbrains/annotations/NotNull;", false);
 		annotationVisitor.visitEnd();
+		annotationVisitor = methodVisitor.visitParameterAnnotation(TypeReference.CLASS_TYPE_PARAMETER, "Lorg/jetbrains/annotations/NotNull;", false);
+		annotationVisitor.visitEnd();
+		methodVisitor.visitCode();
 		Label label0 = new Label();
 		methodVisitor.visitLabel(label0);
 		methodVisitor.visitVarInsn(ALOAD, 1);
