@@ -1,4 +1,4 @@
-package com.nasller.fineagent;
+package com.nasller.myagent;
 
 public class ArrayUtils {
     public static boolean equals(byte[] a, byte[] a2) {

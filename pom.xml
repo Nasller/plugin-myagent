@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.nasller.fineagent</groupId>
-    <artifactId>plugin-fineagent</artifactId>
-    <version>1.0.2</version>
+    <groupId>com.nasller.myagent</groupId>
+    <artifactId>plugin-myagent</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <finalName>FineAgent-v${version}</finalName>
+        <finalName>MyAgent-v${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -48,7 +48,7 @@
                         </manifest>
                         <manifestEntries>
                             <Built-By>Nasller</Built-By>
-                            <JANF-Plugin-Entry>com.nasller.fineagent.MyPluginEntry</JANF-Plugin-Entry>
+                            <JANF-Plugin-Entry>com.nasller.myagent.MyPluginEntry</JANF-Plugin-Entry>
                         </manifestEntries>
                     </archive>
                     <descriptorRefs>

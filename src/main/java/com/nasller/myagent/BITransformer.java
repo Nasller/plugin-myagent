@@ -1,4 +1,4 @@
-package com.nasller.fineagent;
+package com.nasller.myagent;
 
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;
@@ -28,7 +28,7 @@ public class BITransformer implements MyTransformer {
             if ("<init>".equals(mn.name) && "([B)V".equals(mn.desc)) {
                 InsnList list = new InsnList();
                 list.add(new VarInsnNode(ALOAD, 1));
-                list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/fineagent/BytesFilter", "testBytes", "([B)[B", false));
+                list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/myagent/BytesFilter", "testBytes", "([B)[B", false));
                 list.add(new VarInsnNode(ASTORE, 1));
 
                 Iterator<AbstractInsnNode> it = mn.instructions.iterator();

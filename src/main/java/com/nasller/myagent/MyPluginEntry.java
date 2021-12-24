@@ -1,4 +1,4 @@
-package com.nasller.fineagent;
+package com.nasller.myagent;
 
 import com.janetfilter.core.Environment;
 import com.janetfilter.core.models.FilterRule;
@@ -7,6 +7,7 @@ import com.janetfilter.core.plugin.PluginEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyPluginEntry implements PluginEntry {
     private final List<MyTransformer> transformers = new ArrayList<>();
@@ -15,11 +16,17 @@ public class MyPluginEntry implements PluginEntry {
     public void init(Environment environment, List<FilterRule> filterRules) {
         transformers.add(new BITransformer());
         transformers.add(new StrTransformer());
+        if(filterRules != null && filterRules.size() == 4){
+            //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
+            List<String> configList = filterRules.stream().map(FilterRule::getRule).collect(Collectors.toList());
+            transformers.add(new CommandInnerTransformer(configList));
+            transformers.add(new ProcessInnerTransformer(configList));
+        }
     }
 
     @Override
     public String getName() {
-        return "FindAgent";
+        return "MyAgent";
     }
 
     @Override
@@ -29,12 +36,12 @@ public class MyPluginEntry implements PluginEntry {
 
     @Override
     public String getVersion() {
-        return "v1.0.2";
+        return "v1.0.0";
     }
 
     @Override
     public String getDescription() {
-        return "FindAgent plugin for ja-netfilter";
+        return "MyAgent plugin for ja-netfilter";
     }
 
     @Override

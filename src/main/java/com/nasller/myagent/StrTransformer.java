@@ -1,4 +1,4 @@
-package com.nasller.fineagent;
+package com.nasller.myagent;
 
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;
@@ -22,7 +22,7 @@ public class StrTransformer implements MyTransformer {
             if ("<init>".equals(m.name) && "([CII)V".equals(m.desc)) {
                 InsnList list = new InsnList();
                 list.add(new VarInsnNode(ALOAD, 1));
-                list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/fineagent/StringFilter", "testEquals", "([C)Ljava/lang/Object;", false));
+                list.add(new MethodInsnNode(INVOKESTATIC, "com/nasller/myagent/StringFilter", "testEquals", "([C)Ljava/lang/Object;", false));
                 list.add(new VarInsnNode(ASTORE, 5));
                 list.add(new VarInsnNode(ALOAD, 5));
                 LabelNode label1 = new LabelNode();
