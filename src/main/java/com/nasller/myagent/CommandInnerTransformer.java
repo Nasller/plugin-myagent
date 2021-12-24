@@ -1,5 +1,6 @@
 package com.nasller.myagent;
 
+import com.janetfilter.core.models.FilterRule;
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassWriter;
@@ -11,9 +12,9 @@ import java.util.List;
 import static jdk.internal.org.objectweb.asm.Opcodes.ASM5;
 
 public class CommandInnerTransformer implements MyTransformer {
-	private final List<String> configList;
-	public CommandInnerTransformer(List<String> configList){
-		this.configList = configList;
+	private final List<FilterRule> configList;
+	public CommandInnerTransformer(List<FilterRule> filterRules){
+		this.configList = filterRules;
 	}
 
 	@Override

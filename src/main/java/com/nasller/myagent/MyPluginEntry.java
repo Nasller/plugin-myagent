@@ -7,7 +7,6 @@ import com.janetfilter.core.plugin.PluginEntry;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MyPluginEntry implements PluginEntry {
     private final List<MyTransformer> transformers = new ArrayList<>();
@@ -18,9 +17,8 @@ public class MyPluginEntry implements PluginEntry {
         transformers.add(new StrTransformer());
         if(filterRules != null && filterRules.size() == 4){
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
-            List<String> configList = filterRules.stream().map(FilterRule::getRule).collect(Collectors.toList());
-            transformers.add(new CommandInnerTransformer(configList));
-            transformers.add(new ProcessInnerTransformer(configList));
+            transformers.add(new CommandInnerTransformer(filterRules));
+            transformers.add(new ProcessInnerTransformer(filterRules));
         }
     }
 

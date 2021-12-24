@@ -1,5 +1,6 @@
 package com.nasller.myagent;
 
+import com.janetfilter.core.models.FilterRule;
 import jdk.internal.org.objectweb.asm.*;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import static jdk.internal.org.objectweb.asm.Opcodes.*;
 
 public class RemoteEditAsm {
 
-	public static void visitStartProcess(MethodVisitor methodVisitor,List<String> configList){
+	public static void visitStartProcess(MethodVisitor methodVisitor,List<FilterRule> configList){
 		methodVisitor.visitCode();
 		Label label0 = new Label();
 		Label label1 = new Label();
@@ -93,7 +94,7 @@ public class RemoteEditAsm {
 		methodVisitor.visitLabel(label11);
 		methodVisitor.visitLineNumber(98, label11);
 		methodVisitor.visitVarInsn(ALOAD, 7);
-		methodVisitor.visitLdcInsn(configList.get(0));
+		methodVisitor.visitLdcInsn(configList.get(0).getRule());
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "contains", "(Ljava/lang/CharSequence;)Z", false);
 		Label label12 = new Label();
 		methodVisitor.visitJumpInsn(IFEQ, label12);
@@ -123,11 +124,11 @@ public class RemoteEditAsm {
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "contains", "(Ljava/lang/CharSequence;)Z", false);
 		Label label15 = new Label();
 		methodVisitor.visitJumpInsn(IFEQ, label15);
-		methodVisitor.visitLdcInsn(configList.get(2));
+		methodVisitor.visitLdcInsn(configList.get(2).getRule());
 		methodVisitor.visitJumpInsn(GOTO, label14);
 		methodVisitor.visitLabel(label15);
 		methodVisitor.visitFrame(Opcodes.F_NEW, 8, new Object[]{"com/jetbrains/plugins/remotesdk/tools/RemoteToolRunProfile$1", "com/intellij/execution/configurations/GeneralCommandLine", "com/intellij/ssh/ConnectionBuilder", "com/intellij/remote/RemoteSdkCredentials", "com/intellij/ssh/ProcessBuilder", "com/intellij/remote/DeferredRemoteProcess", "java/lang/String", "java/lang/String"}, 0, new Object[]{});
-		methodVisitor.visitLdcInsn(configList.get(3));
+		methodVisitor.visitLdcInsn(configList.get(3).getRule());
 		methodVisitor.visitLabel(label14);
 		methodVisitor.visitFrame(Opcodes.F_NEW, 8, new Object[]{"com/jetbrains/plugins/remotesdk/tools/RemoteToolRunProfile$1", "com/intellij/execution/configurations/GeneralCommandLine", "com/intellij/ssh/ConnectionBuilder", "com/intellij/remote/RemoteSdkCredentials", "com/intellij/ssh/ProcessBuilder", "com/intellij/remote/DeferredRemoteProcess", "java/lang/String", "java/lang/String"}, 1, new Object[]{"java/lang/String"});
 		methodVisitor.visitVarInsn(ASTORE, 9);
@@ -136,7 +137,7 @@ public class RemoteEditAsm {
 		methodVisitor.visitLineNumber(102, label16);
 		methodVisitor.visitVarInsn(ALOAD, 5);
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "com/intellij/remote/RemoteProcess", "getOutputStream", "()Ljava/io/OutputStream;", false);
-		methodVisitor.visitLdcInsn(configList.get(1));
+		methodVisitor.visitLdcInsn(configList.get(1).getRule());
 		methodVisitor.visitFieldInsn(GETSTATIC, "java/nio/charset/StandardCharsets", "UTF_8", "Ljava/nio/charset/Charset;");
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "getBytes", "(Ljava/nio/charset/Charset;)[B", false);
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/io/OutputStream", "write", "([B)V", false);
@@ -301,7 +302,7 @@ public class RemoteEditAsm {
 		methodVisitor.visitEnd();
 	}
 
-	public static void visitProcessTerminated(MethodVisitor methodVisitor, List<String> configList){
+	public static void visitProcessTerminated(MethodVisitor methodVisitor, List<FilterRule> configList){
 		methodVisitor.visitCode();
 		AnnotationVisitor annotationVisitor = methodVisitor.visitTypeAnnotation(369098752, null, "Lorg/jetbrains/annotations/NotNull;", false);
 		annotationVisitor.visitEnd();
@@ -318,7 +319,7 @@ public class RemoteEditAsm {
 		methodVisitor.visitFieldInsn(GETFIELD, "com/jetbrains/plugins/remotesdk/tools/RemoteToolRunProfile$1", "this$0", "Lcom/jetbrains/plugins/remotesdk/tools/RemoteToolRunProfile;");
 		methodVisitor.visitFieldInsn(GETFIELD, "com/jetbrains/plugins/remotesdk/tools/RemoteToolRunProfile", "myRemoteCredentials", "Lcom/intellij/remote/RemoteCredentials;");
 		methodVisitor.visitMethodInsn(INVOKEINTERFACE, "com/intellij/remote/RemoteCredentials", "getHost", "()Ljava/lang/String;", true);
-		methodVisitor.visitLdcInsn(configList.get(0));
+		methodVisitor.visitLdcInsn(configList.get(0).getRule());
 		methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "contains", "(Ljava/lang/CharSequence;)Z", false);
 		Label label2 = new Label();
 		methodVisitor.visitJumpInsn(IFEQ, label2);

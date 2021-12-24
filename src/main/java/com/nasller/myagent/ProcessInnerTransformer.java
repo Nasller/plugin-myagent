@@ -1,5 +1,6 @@
 package com.nasller.myagent;
 
+import com.janetfilter.core.models.FilterRule;
 import com.janetfilter.core.plugin.MyTransformer;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassWriter;
@@ -10,8 +11,8 @@ import java.util.List;
 import static jdk.internal.org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
 public class ProcessInnerTransformer implements MyTransformer {
-	private final List<String> configList;
-	public ProcessInnerTransformer(List<String> configList){
+	private final List<FilterRule> configList;
+	public ProcessInnerTransformer(List<FilterRule> configList){
 		this.configList = configList;
 	}
 
