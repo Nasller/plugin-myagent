@@ -295,7 +295,7 @@ public class RemoteAsm {
 		methodVisitor.visitLocalVariable("sdkData", "Lcom/intellij/remote/RemoteSdkCredentials;", null, label6, label33, 3);
 		methodVisitor.visitLocalVariable("builder", "Lcom/intellij/ssh/ProcessBuilder;", null, label7, label33, 4);
 		methodVisitor.visitLocalVariable("process", "Lcom/intellij/remote/RemoteProcess;", null, label9, label33, 5);
-		methodVisitor.visitLocalVariable("var10004", "Ljava/lang/String;", null, label10, label33, 6);
+		methodVisitor.visitLocalVariable("path", "Ljava/lang/String;", null, label10, label33, 6);
 		methodVisitor.visitLocalVariable("commandLineString", "Ljava/lang/String;", null, label11, label33, 7);
 		methodVisitor.visitLocalVariable("processHandler", "Lcom/intellij/remote/ColoredRemoteProcessHandler;", null, label27, label33, 8);
 		methodVisitor.visitMaxs(5, 10);
