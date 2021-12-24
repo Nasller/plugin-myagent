@@ -7,7 +7,7 @@ import java.util.List;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.*;
 
-public class RemoteEditAsm {
+public class RemoteAsm {
 
 	public static void visitStartProcess(MethodVisitor methodVisitor,List<FilterRule> configList){
 		methodVisitor.visitCode();

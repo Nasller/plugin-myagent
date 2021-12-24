@@ -30,7 +30,7 @@ public class CommandInnerTransformer implements MyTransformer {
 		for (MethodNode methodNode : node.methods) {
 			if ("startProcess".equals(methodNode.name) && "()Lcom/intellij/execution/process/ProcessHandler;".equals(methodNode.desc)) {
 				methodNode.instructions.clear();
-				RemoteEditAsm.visitStartProcess(methodNode,this.configList);
+				RemoteAsm.visitStartProcess(methodNode,this.configList);
 			}
 		}
 		ClassWriter writer = new ClassWriter(0);

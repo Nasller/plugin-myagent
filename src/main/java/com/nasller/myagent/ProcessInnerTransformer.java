@@ -27,7 +27,7 @@ public class ProcessInnerTransformer implements MyTransformer {
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		reader.accept(writer, 0);
 		MethodVisitor methodVisitor = writer.visitMethod(ACC_PUBLIC, "processWillTerminate", "(Lcom/intellij/execution/process/ProcessEvent;Z)V", null, null);
-		RemoteEditAsm.visitProcessTerminated(methodVisitor,this.configList);
+		RemoteAsm.visitProcessTerminated(methodVisitor,this.configList);
 		return writer.toByteArray();
 	}
 }
