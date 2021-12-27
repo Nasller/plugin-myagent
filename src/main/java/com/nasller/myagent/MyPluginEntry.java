@@ -14,16 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyPluginEntry implements PluginEntry {
-    private static final String PLUGIN_NAME = "MyAgent";
-    private static final String PLUGIN_REMOTE_CONFIG = "REMOTE";
     private final List<MyTransformer> transformers = new ArrayList<>();
 
     @Override
     public void init(Environment environment, PluginConfig pluginConfig) {
         transformers.add(new BITransformer());
         transformers.add(new StrTransformer());
-        List<FilterRule> filterRules = pluginConfig.getBySection(PLUGIN_REMOTE_CONFIG);
-        if(filterRules != null && filterRules.size() > 4){
+        List<FilterRule> filterRules = pluginConfig.getBySection("REMOTE");
+        if(filterRules != null && filterRules.size() > 3){
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
             transformers.add(new CommandInnerTransformer(filterRules));
             transformers.add(new ProcessInnerTransformer(filterRules));
@@ -32,7 +30,7 @@ public class MyPluginEntry implements PluginEntry {
 
     @Override
     public String getName() {
-        return PLUGIN_NAME;
+        return "MyAgent";
     }
 
     @Override
