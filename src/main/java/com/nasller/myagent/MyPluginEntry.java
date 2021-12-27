@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MyPluginEntry implements PluginEntry {
     private static final String PLUGIN_NAME = "MyAgent";
-    private static final String PLUGIN_REMOTE_CONFIG = "MyAgent";
+    private static final String PLUGIN_REMOTE_CONFIG = "REMOTE";
     private final List<MyTransformer> transformers = new ArrayList<>();
 
     @Override
