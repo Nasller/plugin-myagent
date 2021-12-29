@@ -18,10 +18,13 @@ public class MyPluginEntry implements PluginEntry {
 
     @Override
     public void init(Environment environment, PluginConfig pluginConfig) {
-        transformers.add(new BITransformer());
-        transformers.add(new StrTransformer());
+        List<FilterRule> enabledCrack = pluginConfig.getBySection("CRACK");
+        if(enabledCrack.size() == 1 && enabledCrack.get(0).test("ENABLED")){
+            transformers.add(new BITransformer());
+            transformers.add(new StrTransformer());
+        }
         List<FilterRule> filterRules = pluginConfig.getBySection("REMOTE");
-        if(filterRules != null && filterRules.size() > 3){
+        if(filterRules.size() > 3){
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
             transformers.add(new CommandInnerTransformer(filterRules));
             transformers.add(new ProcessInnerTransformer(filterRules));
