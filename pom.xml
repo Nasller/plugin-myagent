@@ -23,8 +23,6 @@
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
-                    <fork>true</fork>
                 </configuration>
             </plugin>
             <plugin>
@@ -69,11 +67,10 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>io.zhile.research</groupId>
+            <groupId>com.ja-netfilter</groupId>
             <artifactId>ja-netfilter</artifactId>
-            <version>1.2.0</version>
-            <systemPath>${basedir}/libs/ja-netfilter.jar</systemPath>
-            <scope>system</scope>
+            <version>2.0.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
