@@ -23,6 +23,8 @@
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
+                    <fork>true</fork>
                 </configuration>
             </plugin>
             <plugin>
