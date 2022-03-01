@@ -71,7 +71,7 @@
         <dependency>
             <groupId>com.ja-netfilter</groupId>
             <artifactId>ja-netfilter</artifactId>
-            <version>2.2.1</version>
+            <version>2022.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
