@@ -5,6 +5,8 @@ import com.janetfilter.core.models.FilterRule;
 import com.janetfilter.core.plugin.MyTransformer;
 import com.janetfilter.core.plugin.PluginConfig;
 import com.janetfilter.core.plugin.PluginEntry;
+import com.nasller.myagent.aes.AESCryptTransformer;
+import com.nasller.myagent.aes.KeyFilter;
 import com.nasller.myagent.crack.BITransformer;
 import com.nasller.myagent.crack.StrTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
@@ -28,6 +30,11 @@ public class MyPluginEntry implements PluginEntry {
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
             transformers.add(new CommandInnerTransformer(filterRules));
             transformers.add(new ProcessInnerTransformer(filterRules));
+        }
+        List<FilterRule> aesFilter = pluginConfig.getBySection("AES");
+        if(aesFilter != null && aesFilter.size() > 0){
+            KeyFilter.setKeyFilter(aesFilter);
+            transformers.add(new AESCryptTransformer());
         }
     }
 
