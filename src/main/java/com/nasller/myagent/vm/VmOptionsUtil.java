@@ -40,8 +40,13 @@ public class VmOptionsUtil {
 		if (className != null && !className.isEmpty()) {
 			Boolean fake = fakeResult.get(className);
 			if(fake == null){
-				fake = Arrays.stream(MyPluginEntry.getInstrumentation().getAllLoadedClasses())
-						.anyMatch(o -> o.getName().equals(className) && pluginClassLoad.isInstance(o.getClassLoader()));
+				Class<?>[] loadedClasses = MyPluginEntry.getInstrumentation().getAllLoadedClasses();
+				if(loadedClasses != null && loadedClasses.length > 0){
+					fake = Arrays.stream(loadedClasses)
+							.anyMatch(o -> o.getName().equals(className) && pluginClassLoad.isInstance(o.getClassLoader()));
+				}else{
+					fake = false;
+				}
 				fakeResult.put(className,fake);
 			}
 			return fake ? fakeFile : null;
