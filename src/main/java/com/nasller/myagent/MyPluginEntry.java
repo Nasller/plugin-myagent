@@ -11,15 +11,21 @@ import com.nasller.myagent.crack.BITransformer;
 import com.nasller.myagent.crack.StrTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
 import com.nasller.myagent.remote.ProcessInnerTransformer;
+import com.nasller.myagent.vm.VmOptionsTransformer;
+import com.nasller.myagent.vm.VmOptionsUtil;
 
+import java.lang.instrument.Instrumentation;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyPluginEntry implements PluginEntry {
     private final List<MyTransformer> transformers = new ArrayList<>();
+    private static volatile Instrumentation instrumentation;
 
     @Override
     public void init(Environment environment, PluginConfig pluginConfig) {
+        instrumentation = environment.getInstrumentation();
         List<FilterRule> enabledCrack = pluginConfig.getBySection("CRACK");
         if(enabledCrack.size() == 1 && enabledCrack.get(0).test("ENABLED")){
             transformers.add(new BITransformer());
@@ -35,6 +41,11 @@ public class MyPluginEntry implements PluginEntry {
         if(aesFilter != null && aesFilter.size() > 0){
             KeyFilter.setKeyFilter(aesFilter);
             transformers.add(new AESCryptTransformer());
+        }
+        List<FilterRule> vmFilter = pluginConfig.getBySection("VMOPTIONS");
+        if(vmFilter != null && vmFilter.size() > 0){
+            VmOptionsUtil.setFakeFile(Paths.get(vmFilter.get(0).getRule()));
+            transformers.add(new VmOptionsTransformer());
         }
     }
 
@@ -61,5 +72,9 @@ public class MyPluginEntry implements PluginEntry {
     @Override
     public List<MyTransformer> getTransformers() {
         return transformers;
+    }
+
+    public static Instrumentation getInstrumentation() {
+        return instrumentation;
     }
 }
