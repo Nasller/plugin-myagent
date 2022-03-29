@@ -19,7 +19,7 @@ public class VmOptionsUtil {
 			StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 			if(stackTrace.length > 0){
 				StackTraceElement element = stackTrace[3];
-				return getClassLoaderByClassName(element.getClassName());
+				return getPathByClassName(element.getClassName());
 			}
 		}
 		return null;
@@ -36,7 +36,7 @@ public class VmOptionsUtil {
 		}
 	}
 
-	private static Path getClassLoaderByClassName(String className) {
+	private static Path getPathByClassName(String className) {
 		if (className != null && !className.isEmpty()) {
 			Boolean fake = fakeResult.get(className);
 			if(fake == null){
