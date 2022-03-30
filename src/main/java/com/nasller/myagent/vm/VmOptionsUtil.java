@@ -38,8 +38,7 @@ public class VmOptionsUtil {
 
 	private static Path getPathByClassName(String className) {
 		if (className != null && !className.isEmpty()) {
-			Boolean fake = fakeResult.get(className);
-			fakeResult.computeIfAbsent(className,key->{
+			Boolean fake = fakeResult.computeIfAbsent(className,key->{
 				Class<?>[] loadedClasses = MyPluginEntry.getInstrumentation().getAllLoadedClasses();
 				if(loadedClasses != null && loadedClasses.length > 0){
 					return Arrays.stream(loadedClasses)
