@@ -7,8 +7,6 @@ import com.janetfilter.core.plugin.PluginConfig;
 import com.janetfilter.core.plugin.PluginEntry;
 import com.nasller.myagent.aes.AESCryptTransformer;
 import com.nasller.myagent.aes.KeyFilter;
-import com.nasller.myagent.crack.BITransformer;
-import com.nasller.myagent.crack.StrTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
 import com.nasller.myagent.remote.ProcessInnerTransformer;
 import com.nasller.myagent.vm.VmOptionsTransformer;
@@ -26,11 +24,6 @@ public class MyPluginEntry implements PluginEntry {
     @Override
     public void init(Environment environment, PluginConfig pluginConfig) {
         instrumentation = environment.getInstrumentation();
-        List<FilterRule> enabledCrack = pluginConfig.getBySection("CRACK");
-        if(enabledCrack.size() == 1 && enabledCrack.get(0).test("ENABLED")){
-            transformers.add(new BITransformer());
-            transformers.add(new StrTransformer());
-        }
         List<FilterRule> filterRules = pluginConfig.getBySection("REMOTE");
         if(filterRules.size() > 3){
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源
