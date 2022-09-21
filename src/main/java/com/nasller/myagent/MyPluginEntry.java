@@ -35,8 +35,9 @@ public class MyPluginEntry implements PluginEntry {
             File classPath = new File(filterRules.get(4).getRule());
             DebugInfo.debug("load remote classPath " + classPath);
             if(classPath.exists() && classPath.isDirectory()){
-                transformers.add(new CommandInnerTransformer(classPath));
-                transformers.add(new ProcessInnerTransformer(classPath));
+                FilterRuleUtil.remoteFileLocation = classPath;
+                transformers.add(new CommandInnerTransformer());
+                transformers.add(new ProcessInnerTransformer());
             }
         }
         List<FilterRule> aesFilter = pluginConfig.getBySection("AES");
