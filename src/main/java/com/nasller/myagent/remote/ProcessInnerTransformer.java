@@ -1,19 +1,28 @@
 package com.nasller.myagent.remote;
 
-import com.janetfilter.core.models.FilterRule;
+import com.janetfilter.core.commons.DebugInfo;
 import com.janetfilter.core.plugin.MyTransformer;
-import jdk.internal.org.objectweb.asm.ClassReader;
-import jdk.internal.org.objectweb.asm.ClassWriter;
-import jdk.internal.org.objectweb.asm.MethodVisitor;
+import com.nasller.agent.util.FilterRuleUtil;
 
-import java.util.List;
-
-import static jdk.internal.org.objectweb.asm.Opcodes.ACC_PUBLIC;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class ProcessInnerTransformer implements MyTransformer {
-	private final List<FilterRule> configList;
-	public ProcessInnerTransformer(List<FilterRule> configList){
-		this.configList = configList;
+	private static byte[] bytes;
+
+	public ProcessInnerTransformer(File classPath) {
+		if(bytes == null) {
+			File file = new File(classPath, "RemoteToolRunProfile$1$1.class");
+			if(file.exists()){
+				try (FileInputStream stream = new FileInputStream(file)) {
+					DebugInfo.debug("load RemoteToolRunProfile$1$1.class stream = " + stream);
+					bytes = FilterRuleUtil.readInputStream(stream);
+				} catch (IOException e) {
+					DebugInfo.debug("Wrong get RemoteToolRunProfile$1$1.class", e);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -22,12 +31,7 @@ public class ProcessInnerTransformer implements MyTransformer {
 	}
 
 	@Override
-	public byte[] transform(String className, byte[] classBytes, int order) throws Exception {
-		ClassReader reader = new ClassReader(classBytes);
-		ClassWriter writer = new ClassWriter(0);
-		reader.accept(writer, 0);
-		MethodVisitor methodVisitor = writer.visitMethod(ACC_PUBLIC, "processWillTerminate", "(Lcom/intellij/execution/process/ProcessEvent;Z)V", null, null);
-		RemoteAsm.visitProcessTerminated(methodVisitor,this.configList);
-		return writer.toByteArray();
+	public byte[] transform(String className, byte[] classBytes, int order) {
+		return bytes != null?bytes:classBytes;
 	}
 }

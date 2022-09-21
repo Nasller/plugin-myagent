@@ -13,7 +13,7 @@
     </properties>
 
     <build>
-        <finalName>MyAgent-v${version}</finalName>
+        <finalName>MyAgent-v${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>com.ja-netfilter</groupId>
             <artifactId>ja-netfilter</artifactId>
-            <version>2022.1.0</version>
+            <version>2022.2.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

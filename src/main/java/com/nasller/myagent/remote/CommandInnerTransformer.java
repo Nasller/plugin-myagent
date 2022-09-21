@@ -1,20 +1,28 @@
 package com.nasller.myagent.remote;
 
-import com.janetfilter.core.models.FilterRule;
+import com.janetfilter.core.commons.DebugInfo;
 import com.janetfilter.core.plugin.MyTransformer;
-import jdk.internal.org.objectweb.asm.ClassReader;
-import jdk.internal.org.objectweb.asm.ClassWriter;
-import jdk.internal.org.objectweb.asm.tree.ClassNode;
-import jdk.internal.org.objectweb.asm.tree.MethodNode;
+import com.nasller.agent.util.FilterRuleUtil;
 
-import java.util.List;
-
-import static jdk.internal.org.objectweb.asm.Opcodes.ASM5;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class CommandInnerTransformer implements MyTransformer {
-	private final List<FilterRule> configList;
-	public CommandInnerTransformer(List<FilterRule> filterRules){
-		this.configList = filterRules;
+	private static byte[] bytes;
+
+	public CommandInnerTransformer(File classPath) {
+		if(bytes == null) {
+			File file = new File(classPath, "RemoteToolRunProfile$1.class");
+			if(file.exists()){
+				try (FileInputStream stream = new FileInputStream(file)) {
+					DebugInfo.debug("load RemoteToolRunProfile$1.class stream = " + stream);
+					bytes = FilterRuleUtil.readInputStream(stream);
+				} catch (IOException e) {
+					DebugInfo.debug("Wrong get RemoteToolRunProfile$1.class", e);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -23,18 +31,7 @@ public class CommandInnerTransformer implements MyTransformer {
 	}
 
 	@Override
-	public byte[] transform(String className, byte[] classBytes, int order) throws Exception {
-		ClassReader reader = new ClassReader(classBytes);
-		ClassNode node = new ClassNode(ASM5);
-		reader.accept(node, 0);
-		for (MethodNode methodNode : node.methods) {
-			if ("startProcess".equals(methodNode.name) && "()Lcom/intellij/execution/process/ProcessHandler;".equals(methodNode.desc)) {
-				methodNode.instructions.clear();
-				RemoteAsm.visitStartProcess(methodNode,this.configList);
-			}
-		}
-		ClassWriter writer = new ClassWriter(0);
-		node.accept(writer);
-		return writer.toByteArray();
+	public byte[] transform(String className, byte[] classBytes, int order) {
+		return bytes != null?bytes:classBytes;
 	}
 }
