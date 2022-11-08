@@ -10,6 +10,7 @@ import com.nasller.agent.util.FilterRuleUtil;
 import com.nasller.agent.util.FilterRuleUtil.RuleModel;
 import com.nasller.myagent.aes.AESCryptTransformer;
 import com.nasller.myagent.aes.KeyFilter;
+import com.nasller.myagent.ja.InitializerTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
 import com.nasller.myagent.remote.ProcessInnerTransformer;
 import com.nasller.myagent.vm.VmOptionsTransformer;
@@ -50,6 +51,7 @@ public class MyPluginEntry implements PluginEntry {
             VmOptionsUtil.setFakeFile(Paths.get(vmFilter.get(0).getRule()));
             transformers.add(new VmOptionsTransformer());
         }
+        transformers.add(new InitializerTransformer());
     }
 
     @Override
