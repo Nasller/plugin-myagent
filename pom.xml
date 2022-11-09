@@ -13,7 +13,6 @@
     </properties>
 
     <build>
-        <finalName>MyAgent-v${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -42,6 +41,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
+                    <finalName>MyAgent-v${project.version}</finalName>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -54,6 +54,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
