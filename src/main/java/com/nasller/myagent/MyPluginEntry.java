@@ -34,8 +34,8 @@ public class MyPluginEntry implements PluginEntry {
             //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源, 5.class路径
             FilterRuleUtil.add(filterRules.stream().map(o->new RuleModel(o.getType().name(),o.getRule())).toArray(RuleModel[]::new));
             File classPath = new File(filterRules.get(4).getRule());
-            DebugInfo.debug("load remote classPath " + classPath);
             if(classPath.exists() && classPath.isDirectory()){
+                DebugInfo.debug("load remote classPath " + classPath);
                 FilterRuleUtil.remoteFileLocation = classPath;
                 transformers.add(new CommandInnerTransformer());
                 transformers.add(new ProcessInnerTransformer());

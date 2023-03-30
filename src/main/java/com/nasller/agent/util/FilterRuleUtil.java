@@ -2,7 +2,9 @@ package com.nasller.agent.util;
 
 import com.janetfilter.core.commons.DebugInfo;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,10 +24,10 @@ public class FilterRuleUtil {
 	public static byte[] getClassOrDefault(String name,byte[] classBytes){
 		if(remoteFileLocation != null){
 			File file = new File(remoteFileLocation, name);
-			if(file.exists()){
-				try (FileInputStream stream = new FileInputStream(file)) {
-					DebugInfo.debug("load " + name + " stream = " + stream);
-					return FilterRuleUtil.readInputStream(stream);
+			if(file.exists() && file.isFile()){
+				try {
+					DebugInfo.debug("load " + name);
+					return Files.readAllBytes(file.toPath());
 				} catch (IOException e) {
 					DebugInfo.debug("Wrong get "+name, e);
 				}
@@ -36,20 +38,6 @@ public class FilterRuleUtil {
 
 	public static List<RuleModel> getRemoteRules(){
 		return new ArrayList<>(remoteRules);
-	}
-
-	public static byte[] readInputStream(InputStream inputStream) {
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-		int length;
-		try {
-			while ((length = inputStream.read(buffer)) != -1) {
-				outStream.write(buffer, 0, length);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return outStream.toByteArray();
 	}
 
 	public static class RuleModel{
