@@ -5,20 +5,19 @@ import com.janetfilter.core.commons.DebugInfo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FilterRuleUtil {
 	public static File remoteFileLocation;
-	private static final List<RuleModel> remoteRules = new ArrayList<>();
+	private static final Map<String,RuleModel> remoteMap = new HashMap<>();
 
-	public static void add(RuleModel... ruleModels){
-		remoteRules.addAll(Arrays.asList(ruleModels));
+	public static void put(String jumpServer,RuleModel ruleModel){
+		remoteMap.put(jumpServer,ruleModel);
 	}
 
-	public static RuleModel get(int index){
-		return index >= 0 && remoteRules.size() > index ? remoteRules.get(index) : new RuleModel("","");
+	public static RuleModel get(String jumpServer){
+		return remoteMap.get(jumpServer);
 	}
 
 	public static byte[] getClassOrDefault(String name,byte[] classBytes){
@@ -36,33 +35,37 @@ public class FilterRuleUtil {
 		return classBytes;
 	}
 
-	public static List<RuleModel> getRemoteRules(){
-		return new ArrayList<>(remoteRules);
+	public static Map<String,RuleModel> getRemoteRules(){
+		return new HashMap<>(remoteMap);
 	}
 
 	public static class RuleModel{
-		private String ruleType;
-		private String rule;
+		private final String instruction;
+		private final String dev;
+		private final String pro;
+		private final String[] other;
 
-		public RuleModel(String ruleType, String rule) {
-			this.ruleType = ruleType;
-			this.rule = rule;
+		public RuleModel(String instruction, String dev, String pro,String[] other) {
+			this.instruction = instruction;
+			this.dev = dev;
+			this.pro = pro;
+			this.other = other;
 		}
 
-		public String getRuleType() {
-			return ruleType;
+		public String getInstruction() {
+			return instruction;
 		}
 
-		public void setRuleType(String ruleType) {
-			this.ruleType = ruleType;
+		public String getDev() {
+			return dev;
 		}
 
-		public String getRule() {
-			return rule;
+		public String getPro() {
+			return pro;
 		}
 
-		public void setRule(String rule) {
-			this.rule = rule;
+		public String[] getOther() {
+			return other;
 		}
 	}
 }

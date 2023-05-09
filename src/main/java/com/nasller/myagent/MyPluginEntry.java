@@ -20,6 +20,7 @@ import java.io.File;
 import java.lang.instrument.Instrumentation;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyPluginEntry implements PluginEntry {
@@ -30,15 +31,21 @@ public class MyPluginEntry implements PluginEntry {
     public void init(Environment environment, PluginConfig pluginConfig) {
         instrumentation = environment.getInstrumentation();
         List<FilterRule> filterRules = pluginConfig.getBySection("REMOTE");
-        if(filterRules.size() > 4){
-            //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源, 5.class路径
-            FilterRuleUtil.add(filterRules.stream().map(o->new RuleModel(o.getType().name(),o.getRule())).toArray(RuleModel[]::new));
-            File classPath = new File(filterRules.get(4).getRule());
+        if(filterRules.size() > 1){
+            String classPathRule = filterRules.remove(0).getRule();
+            File classPath = new File(classPathRule);
             if(classPath.exists() && classPath.isDirectory()){
                 DebugInfo.debug("load remote classPath " + classPath);
                 FilterRuleUtil.remoteFileLocation = classPath;
                 transformers.add(new CommandInnerTransformer());
                 transformers.add(new ProcessInnerTransformer());
+            }
+            //1.jumpServerUrl,2.指令,3.默认对应dev资源，4.默认对应pre或pro资源，5.其他指令
+            for (FilterRule filterRule : filterRules) {
+                String[] split = filterRule.getRule().split(",");
+                if(split.length > 3){
+                    FilterRuleUtil.put(split[0],new RuleModel(split[1],split[2],split[3], Arrays.stream(split).skip(4).toArray(String[]::new)));
+                }
             }
         }
         List<FilterRule> aesFilter = pluginConfig.getBySection("AES");
