@@ -44,7 +44,10 @@ public class MyPluginEntry implements PluginEntry {
             for (FilterRule filterRule : filterRules) {
                 String[] split = filterRule.getRule().split(",");
                 if(split.length > 3){
-                    FilterRuleUtil.put(split[0],new RuleModel(split[1],split[2],split[3], Arrays.stream(split).skip(4).toArray(String[]::new)));
+                    FilterRuleUtil.put(split[0],new RuleModel(split[1],split[2],split[3],
+                            Arrays.stream(split).skip(4).filter(o->o.startsWith("dev:")).map(o->o.replaceFirst("dev:","")).toArray(String[]::new),
+                            Arrays.stream(split).skip(4).filter(o->o.startsWith("pro:")).map(o->o.replaceFirst("pro:","")).toArray(String[]::new))
+                    );
                 }
             }
         }

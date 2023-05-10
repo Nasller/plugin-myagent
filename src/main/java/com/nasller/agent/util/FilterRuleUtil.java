@@ -43,13 +43,15 @@ public class FilterRuleUtil {
 		private final String instruction;
 		private final String dev;
 		private final String pro;
-		private final String[] other;
+		private final String[] devOther;
+		private final String[] proOther;
 
-		public RuleModel(String instruction, String dev, String pro,String[] other) {
+		public RuleModel(String instruction, String dev, String pro,String[] devOther,String[] proOther) {
 			this.instruction = instruction;
 			this.dev = dev;
 			this.pro = pro;
-			this.other = other;
+			this.devOther = devOther;
+			this.proOther = proOther;
 		}
 
 		public String getInstruction() {
@@ -64,8 +66,12 @@ public class FilterRuleUtil {
 			return pro;
 		}
 
-		public String[] getOther() {
-			return other;
+		public String[] getDevOther() {
+			return devOther;
+		}
+
+		public String[] getProOther() {
+			return proOther;
 		}
 	}
 }
