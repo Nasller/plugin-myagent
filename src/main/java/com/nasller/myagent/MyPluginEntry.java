@@ -62,7 +62,6 @@ public class MyPluginEntry implements PluginEntry {
             VmOptionsUtil.setFakeFile(Paths.get(vmFilter.get(0).getRule()));
             transformers.add(new VmOptionsTransformer());
         }
-//        transformers.add(new SshVolumeBaseTransformer());
         transformers.add(new SshEnvironmentRelativePathsTransformer());
         transformers.add(new InitializerTransformer());
     }
