@@ -13,6 +13,7 @@ import com.nasller.myagent.aes.KeyFilter;
 import com.nasller.myagent.ja.InitializerTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
 import com.nasller.myagent.remote.ProcessInnerTransformer;
+import com.nasller.myagent.remote.SshEnvironmentRelativePathsTransformer;
 import com.nasller.myagent.vm.VmOptionsTransformer;
 import com.nasller.myagent.vm.VmOptionsUtil;
 
@@ -61,6 +62,8 @@ public class MyPluginEntry implements PluginEntry {
             VmOptionsUtil.setFakeFile(Paths.get(vmFilter.get(0).getRule()));
             transformers.add(new VmOptionsTransformer());
         }
+//        transformers.add(new SshVolumeBaseTransformer());
+        transformers.add(new SshEnvironmentRelativePathsTransformer());
         transformers.add(new InitializerTransformer());
     }
 

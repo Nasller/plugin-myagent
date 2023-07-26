@@ -34,6 +34,7 @@ public class AESCryptTransformer implements MyTransformer {
 				list.add(new VarInsnNode(ASTORE, 1));
 				list.add(label1);
 				m.instructions.insert(list);
+				break;
 			}
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);

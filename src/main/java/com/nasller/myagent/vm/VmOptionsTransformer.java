@@ -30,6 +30,7 @@ public class VmOptionsTransformer implements MyTransformer {
 				list.add(new InsnNode(ARETURN));
 				list.add(label1);
 				m.instructions.insert(list);
+				break;
 			}
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);

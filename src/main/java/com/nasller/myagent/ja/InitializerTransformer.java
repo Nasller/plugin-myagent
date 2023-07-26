@@ -26,6 +26,7 @@ public class InitializerTransformer implements MyTransformer {
 				list.add(new MethodInsnNode(INVOKESTATIC, "java/lang/UnsupportedOperationException", "<init>", "()V", false));
 				list.add(new InsnNode(ATHROW));
 				m.instructions.insert(list);
+				break;
 			}
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
