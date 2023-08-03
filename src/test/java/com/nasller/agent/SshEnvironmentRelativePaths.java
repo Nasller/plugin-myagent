@@ -79,7 +79,7 @@ public class SshEnvironmentRelativePaths {
 		}
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 		node.accept(writer);
-		try (FileOutputStream outputStream = new FileOutputStream("C:/Users/Nasller/Desktop/SshVolumeBase1.class")){
+		try (FileOutputStream outputStream = new FileOutputStream(System.getProperty("user.home") + "/Desktop/SshVolumeBase1.class")){
 			outputStream.write(writer.toByteArray());
 		}
 	}
