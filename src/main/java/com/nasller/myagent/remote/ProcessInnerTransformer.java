@@ -1,7 +1,7 @@
 package com.nasller.myagent.remote;
 
 import com.janetfilter.core.plugin.MyTransformer;
-import com.nasller.agent.util.FilterRuleUtil;
+import com.thirdpart.janetfilter.plugins.my.agent.util.FilterRuleUtil;
 
 public class ProcessInnerTransformer implements MyTransformer {
 	@Override
