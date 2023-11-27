@@ -6,20 +6,16 @@ import com.janetfilter.core.models.FilterRule;
 import com.janetfilter.core.plugin.MyTransformer;
 import com.janetfilter.core.plugin.PluginConfig;
 import com.janetfilter.core.plugin.PluginEntry;
-import com.thirdpart.janetfilter.plugins.my.agent.util.FilterRuleUtil;
-import com.thirdpart.janetfilter.plugins.my.agent.util.FilterRuleUtil.RuleModel;
 import com.nasller.myagent.aes.AESCryptTransformer;
-import com.nasller.myagent.aes.KeyFilter;
-import com.nasller.myagent.ja.InitializerTransformer;
+import com.nasller.myagent.redirect.URLConnectionTransformer;
 import com.nasller.myagent.remote.CommandInnerTransformer;
 import com.nasller.myagent.remote.ProcessInnerTransformer;
 import com.nasller.myagent.remote.SshEnvironmentRelativePathsTransformer;
-import com.nasller.myagent.vm.VmOptionsTransformer;
-import com.nasller.myagent.vm.VmOptionsUtil;
+import com.thirdpart.janetfilter.plugins.my.agent.util.FilterRuleUtil;
+import com.thirdpart.janetfilter.plugins.my.agent.util.FilterRuleUtil.RuleModel;
 
 import java.io.File;
 import java.lang.instrument.Instrumentation;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,18 +48,15 @@ public class MyPluginEntry implements PluginEntry {
                 }
             }
         }
-        List<FilterRule> aesFilter = pluginConfig.getBySection("AES");
-        if(aesFilter != null && aesFilter.size() > 0){
-            KeyFilter.setKeyFilter(aesFilter);
+        filterRules = pluginConfig.getBySection("AES");
+        if(!filterRules.isEmpty()){
             transformers.add(new AESCryptTransformer());
         }
-        List<FilterRule> vmFilter = pluginConfig.getBySection("VMOPTIONS");
-        if(vmFilter != null && vmFilter.size() > 0){
-            VmOptionsUtil.setFakeFile(Paths.get(vmFilter.get(0).getRule()));
-            transformers.add(new VmOptionsTransformer());
+        filterRules = pluginConfig.getBySection("URL");
+        if(!filterRules.isEmpty()){
+            transformers.add(new URLConnectionTransformer(filterRules));
         }
         transformers.add(new SshEnvironmentRelativePathsTransformer());
-        transformers.add(new InitializerTransformer());
     }
 
     @Override
@@ -74,11 +67,6 @@ public class MyPluginEntry implements PluginEntry {
     @Override
     public String getAuthor() {
         return "Nasller";
-    }
-
-    @Override
-    public String getVersion() {
-        return "v1.0.0";
     }
 
     @Override

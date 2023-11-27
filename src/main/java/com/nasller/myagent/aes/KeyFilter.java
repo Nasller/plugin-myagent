@@ -23,7 +23,7 @@ public class KeyFilter {
 			String key = split[1];
 			if(key != null && key.length() > 1){
 				String encryptData;
-				if(type.equals(TypeEnum.NONE)){
+				if(type == TypeEnum.NONE){
 					map.put(key,new Data(split[2],type));
 				}else if((encryptData = TypeEnum.aesEncrypt(key, type)) != null){
 					map.put(filterRule.getRule(), new Data(encryptData,type));
