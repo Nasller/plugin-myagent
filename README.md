@@ -15,9 +15,8 @@
     EQUAL,NONE,{aesKey},{customData}
     ;实现一个一直在刷新的customData，需要修改com.nasller.myagent.aes.TypeEnum类
     EQUAL,LEET_CODE,{aesKey}
-    
     ```
-
+  
 + Remote SSH External Tools工具支持初始化指令，类似于登录jumpServer时需要选择目标机器的指令，需要配合自定义字节码（有需要找我）
 
   + ```
