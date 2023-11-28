@@ -26,19 +26,19 @@ public class RedirectUrlUtil {
                 !"https".equals(url.getProtocol()))) {
             return url;
         }
-	    Iterator<Entry<FilterRule, LazyUrl>> iterator = ruleMap.entrySet().iterator();
-	    while (iterator.hasNext()) {
-		    Entry<FilterRule, LazyUrl> entry = iterator.next();
-		    if (entry.getKey().test(url.toString())) {
-			    try {
-				    return entry.getValue().getURL();
-			    } catch (Exception e) {
-				    DebugInfo.error("RedirectUrlUtil testURL error: " + url, e);
+        Iterator<Entry<FilterRule, LazyUrl>> iterator = ruleMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<FilterRule, LazyUrl> entry = iterator.next();
+            if (entry.getKey().test(url.toString())) {
+                try {
+                    return entry.getValue().getURL();
+                } catch (Exception e) {
+                    DebugInfo.error("RedirectUrlUtil testURL error: " + url, e);
                     iterator.remove();
-			    }
-		    }
-	    }
-	    return url;
+                }
+            }
+        }
+        return url;
     }
 
     private static class LazyUrl{
@@ -52,7 +52,7 @@ public class RedirectUrlUtil {
         public URL getURL() throws Exception{
             if(urlObj == null){
                 synchronized (this){
-	                if(urlObj == null){
+                    if(urlObj == null){
                         urlObj = new URL(url);
                     }
                 }
