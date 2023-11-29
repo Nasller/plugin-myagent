@@ -21,7 +21,7 @@
 
   + ```
     [REMOTE]
-    EQUAL,{class file path eg: F:/ ja-netfilter/classPath/remote}
+    EQUAL,{class file path eg: F:/ja-netfilter/classPath/remote}
     EQUAL,jp.nasller.com,p,4,1
     ```
 
